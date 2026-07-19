@@ -54,9 +54,19 @@ async function getAllStudents(){
         const studentCard=document.createElement('div')
         studentCard.className="studentcard"
         studentCard.innerHTML=`
-        <p><Strong>Id:</Strong> ${student.id}<Strong>Name:</Strong> ${student.name}<Strong>Phone:</Strong> ${student.ph_no}<Strong>Email:</Strong> ${student.email}<Strong>Department:</Strong> ${student.department}<Strong>CNIC:</Strong> ${student.cnic}</p>
+    <p>
+        <Strong>Id:</Strong> <span>${student.id}</span>
+        <Strong>Name:</Strong> <span>${student.name}</span>
+        <Strong>Phone:</Strong> <span>${student.ph_no}</span>
+        <Strong>Email:</Strong> <span>${student.email}</span>
+        <Strong>Department:</Strong> <span>${student.department}</span>
+        <Strong>CNIC:</Strong> <span>${student.cnic}</span>
+    </p>
+    <div class="button-group">
         <button class="deletebtn" data-id="${student.id}">Delete</button>
-        <button class="editbtn" data-id="${student.id}">Edit</button>`;
+        <button class="editbtn" data-id="${student.id}">Edit</button>
+    </div>
+`;
         studentList.appendChild(studentCard)
 })
     deleteStudent()
@@ -77,8 +87,12 @@ function editStudent(){
                         e.target.textContent="Update"
                         const p=card.querySelector('p')
                         
-                        p.innerHTML=`<Strong>Name:<input type="text" class="edit-name"></Strong> <Strong>Phone:<input type="number" class="edit-phone"></Strong> <Strong>Email<input type="text" class="edit-email">:</Strong>
-                        <Strong>Department:<input type="text" class="edit-depart"></Strong> `;
+                        p.innerHTML=`
+    <Strong>Name:</Strong> <input type="text" class="edit-name">
+    <Strong>Phone:</Strong> <input type="number" class="edit-phone">
+    <Strong>Email:</Strong> <input type="text" class="edit-email">
+    <Strong>Department:</Strong> <input type="text" class="edit-depart">   
+`;
                     }
                     else{
                         const editedName=card.querySelector('.edit-name').value

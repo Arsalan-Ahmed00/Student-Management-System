@@ -1,7 +1,184 @@
-.studentcard{
-    border: 1px solid black;
-    padding: 10px;
-    background-color: blue;
-    margin: 10px;
-    width: 200px;
+/* Import a modern, clean font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* --- Base Reset & Typography --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #0b0f19; /* Deep midnight background */
+    color: #e2e8f0; /* Soft slate text */
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    /* A fading gradient line instead of a solid border */
+    background: linear-gradient(90deg, transparent, #334155, transparent);
+    margin: 2.5rem 0;
+}
+
+/* --- The Input Form --- */
+#studentform {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    background: #111827; /* Slightly lighter than the background */
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid #1f2937;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+}
+
+#studentform input {
+    flex: 1 1 200px;
+    padding: 0.85rem 1.2rem;
+    background: #0b0f19; /* Inset dark background for inputs */
+    color: #f8fafc;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#studentform input::placeholder {
+    color: #64748b;
+}
+
+#studentform input:focus {
+    border-color: #6366f1; /* Indigo accent */
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15); /* Soft indigo glow */
+}
+
+/* The Main "Add Student" Button */
+#studentform button {
+    padding: 0.85rem 2rem;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); /* Indigo to Purple gradient */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#studentform button:hover {
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3); /* Intense glow on hover */
+}
+
+/* --- The Student Grid (Cards) --- */
+#studentlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
+    gap: 1.5rem;
+}
+
+.studentcard {
+    background: #111827;
+    padding: 1.9rem;
+    border-radius: 16px;
+    border: 1px solid #1f2937;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Ultra-smooth animation */
+}
+
+.studentcard:hover {
+    transform: translateY(-5px); /* Floats up */
+    border-color: #334155;
+
+}
+
+/* --- Card Text Formatting --- */
+.studentcard p {
+    display: grid;
+    grid-template-columns: 105px 1fr; /* Creates a strict 2-column layout */
+    row-gap: 0.8rem;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+}
+
+.studentcard p strong {
+    color: #f1f5f9;
+    font-weight: 500;
+    /* Removed the old inline-block width because Grid handles it now! */
+}
+
+
+/* Input fields inside the card during Edit Mode */
+.studentcard p input {
+    padding: 0.4rem 0.6rem;
+    background: #0b0f19;
+    color: white;
+    border: 1px solid #6366f1; /* Keeps them visible while editing */
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    width: calc(100% - 110px);
+    outline: none;
+}
+
+/* --- Card Buttons --- */
+.button-group {
+    display: flex;
+    gap: 2rem;
+    margin-top: auto;
+}
+
+.editbtn, .deletebtn {
+    flex: 1;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.editbtn {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+.editbtn:hover {
+    background: #334155;
+    color: #ffffff;
+}
+
+.deletebtn {
+    background: rgba(239, 68, 68, 0.1); /* Transparent Red */
+    color: #ef4444; /* Bright Red Text */
+}
+
+.deletebtn:hover {
+    background: #ef4444; /* Solid Red */
+    color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #0b0f19 inset !important;
+    -webkit-text-fill-color: #f8fafc !important;
+    transition: background-color 5000s ease-in-out 0s;
 }
