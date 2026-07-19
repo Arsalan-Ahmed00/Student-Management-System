@@ -14,7 +14,7 @@ const studentCnic=document.getElementById("studentcnic")
 const studentList=document.getElementById("studentlist")
 
 studentForm.addEventListener('submit',async (e)=>{
-   
+        e.preventDefault()
 
     const id=studentId.value
     const name=studentName.value
@@ -39,11 +39,12 @@ studentForm.addEventListener('submit',async (e)=>{
         studentDepartment.value = "";
         studentCnic.value = "";
         }
-        getAllStudents()
+    getAllStudents()
         
 })
 
 async function getAllStudents(){
+    studentList.innerHTML=""
     const {data:student,error}=await supabase.from('student').select('*')
     if(error){
         console.log("Error fetching students: ",error.message)
@@ -53,8 +54,21 @@ async function getAllStudents(){
         const studentCard=document.createElement('div')
         studentCard.className="studentcard"
         studentCard.innerHTML=`
-        <p><Strong>Id:</Strong> ${student.id}</p>`;
+        <p><Strong>Id:</Strong> ${student.id}<Strong>Name:</Strong> ${student.name}<Strong>Phone:</Strong> ${student.ph_no}<Strong>Email:</Strong> ${student.email}<Strong>Department:</Strong> ${student.department}<Strong>CNIC:</Strong> ${student.cnic}</p>
+        <button id="deletebtn" data-id="${student.id}">Delete</button>`;
         studentList.appendChild(studentCard)
 })
+    deleteStudent()
 }
+
 getAllStudents()
+function deleteStudent(){
+        const deleteButton=document.querySelectorAll("#deletebtn")
+        deleteButton.forEach(button=>{
+            button.addEventListener('click',async (e)=>{
+                const studentId=e.target.dataset.id
+                const {data,error}=await supabase.from('student').delete().eq('id',studentId)   
+                getAllStudents()
+            })
+        })
+}
