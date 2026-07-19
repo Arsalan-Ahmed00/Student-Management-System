@@ -11,7 +11,7 @@ const studentPhone=document.getElementById("studentphone")
 const studentEmail=document.getElementById("studentemail")
 const studentDepartment=document.getElementById("studentdepartment")
 const studentCnic=document.getElementById("studentcnic")
-
+const studentList=document.getElementById("studentlist")
 
 studentForm.addEventListener('submit',async (e)=>{
    
@@ -39,7 +39,22 @@ studentForm.addEventListener('submit',async (e)=>{
         studentDepartment.value = "";
         studentCnic.value = "";
         }
+        getAllStudents()
         
 })
 
-
+async function getAllStudents(){
+    const {data:student,error}=await supabase.from('student').select('*')
+    if(error){
+        console.log("Error fetching students: ",error.message)
+    }   
+    
+        student.forEach(student=>{
+        const studentCard=document.createElement('div')
+        studentCard.className="studentcard"
+        studentCard.innerHTML=`
+        <p><Strong>Id:</Strong> ${student.id}</p>`;
+        studentList.appendChild(studentCard)
+})
+}
+getAllStudents()
