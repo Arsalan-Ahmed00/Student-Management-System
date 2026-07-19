@@ -55,15 +55,56 @@ async function getAllStudents(){
         studentCard.className="studentcard"
         studentCard.innerHTML=`
         <p><Strong>Id:</Strong> ${student.id}<Strong>Name:</Strong> ${student.name}<Strong>Phone:</Strong> ${student.ph_no}<Strong>Email:</Strong> ${student.email}<Strong>Department:</Strong> ${student.department}<Strong>CNIC:</Strong> ${student.cnic}</p>
-        <button id="deletebtn" data-id="${student.id}">Delete</button>`;
+        <button class="deletebtn" data-id="${student.id}">Delete</button>
+        <button class="editbtn" data-id="${student.id}">Edit</button>`;
         studentList.appendChild(studentCard)
 })
     deleteStudent()
+    editStudent()
 }
 
 getAllStudents()
+
+
+function editStudent(){
+        const editButton=document.querySelectorAll(".editbtn")
+        editButton.forEach(button=>{
+            button.addEventListener('click',async (e)=>{
+              const card=e.target.closest('.studentcard')
+                const studentId=e.target.dataset.id
+
+                    if(e.target.textContent==="Edit"){
+                        e.target.textContent="Update"
+                        const p=card.querySelector('p')
+                        
+                        p.innerHTML=`<Strong>Name:<input type="text" class="edit-name"></Strong> <Strong>Phone:<input type="number" class="edit-phone"></Strong> <Strong>Email<input type="text" class="edit-email">:</Strong>
+                        <Strong>Department:<input type="text" class="edit-depart"></Strong> `;
+                    }
+                    else{
+                        const editedName=card.querySelector('.edit-name').value
+                        const editedPhone=card.querySelector('.edit-phone').value
+                        const editedEmail=card.querySelector('.edit-email').value
+                        const editedDepartment=card.querySelector('.edit-depart').value
+                      
+                        const {data,error}=
+                        await supabase.from('student').update({
+                            name:editedName,
+                            ph_no:editedPhone,
+                            email:editedEmail, 
+                            department:editedDepartment,
+                        }).eq('id',studentId)
+                        getAllStudents()
+                    }
+               
+            })
+
+        })
+
+}
+
+
 function deleteStudent(){
-        const deleteButton=document.querySelectorAll("#deletebtn")
+        const deleteButton=document.querySelectorAll(".deletebtn")
         deleteButton.forEach(button=>{
             button.addEventListener('click',async (e)=>{
                 const studentId=e.target.dataset.id
